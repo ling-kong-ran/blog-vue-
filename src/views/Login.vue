@@ -1,15 +1,15 @@
 <template>
-        <div>
-                <el-row label-position="right" type="flex">
-                    <el-col :span="16" :push="4" :xs="{span:20,push:2}">
+        <div class="box">
+                <el-row class="row" label-position="right" type="flex">
+                    <el-col :span="20" :push="2" :xs="{span:20,push:2}">
                         <el-col :span="12" :push="6" :xs="{span:20,push:2}" >
-                            <el-card shadow="always">
+                            <el-card shadow="always" class="card" >
                                 <el-form :model="ruleForm" :rules="rules" ref="ruleForm"  class="demo-ruleForm">
                                     <el-form-item  label="用户" prop="username" >
                                         <el-input style="width: 50%" clearable  prefix-icon="el-icon-user"  v-model="ruleForm.username"></el-input>
                                     </el-form-item>
                                     <el-form-item label="密码" prop="password">
-                                        <el-input style="width: 50%"  prefix-icon="el-icon-thumb" show-password v-model="ruleForm.password"></el-input>
+                                        <el-input style="width: 50%" clearable prefix-icon="el-icon-thumb" show-password v-model="ruleForm.password"></el-input>
                                     </el-form-item>
                                 </el-form>
                                 <div >
@@ -22,9 +22,6 @@
 
                     </el-col>
                 </el-row>
-
-
-
         </div>
 </template>
 
@@ -54,11 +51,15 @@
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         //alert('submit!');
-                        this.$axios.post("http://localhost:8888/login",this.ruleForm).then(res=>{
-                            console.log(res);
+                        this.$axios.post("/login",this.ruleForm).then(res=>{
+                            let userInfo=JSON.stringify(res.data.data)
+                            let token=res.headers['authentication'];
+                            this.$store.commit('SET_TOKEN',token);
+                            this.$store.commit('SET_USERINFO',userInfo);
+                            this.$router.push({name:'Blogs'})
                         })
                     } else {
-                        //console.log('error submit!!');
+                        console.log('error submit!!');
                         return false;
                     }
                 });
@@ -71,33 +72,27 @@
 </script>
 
 <style scoped>
-    .el-header, .el-footer {
-        background-color: #B3C0D1;
-        color: #333;
-        text-align: center;
-        line-height: 60px;
-    }
-    .el-card{
-        padding: 40px;
-    }
-
-    .el-aside {
-        background-color: #D3DCE6;
-        color: #333;
-        text-align: center;
+    .box  {
+        color: white;
+        width: 100%;
+        height: 100%;
         line-height: 200px;
+
+    }
+    .card{
+        padding-top: 100px;
+        padding-bottom: 0;
+        background-color: white;
+        height: 400px;
     }
 
-    .el-main {
-        background-color: #E9EEF3;
-        color: #333;
-        text-align: center;
-        line-height: 160px;
+    .el-form{
+        line-height: 20px;
+    }
+    .demo-ruleForm{
+        height: 100%;
     }
 
-    body > .el-container {
-        margin-bottom: 40px;
-    }
 
     .el-container:nth-child(5) .el-aside,
     .el-container:nth-child(6) .el-aside {

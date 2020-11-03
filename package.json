@@ -7,9 +7,11 @@
     "dev": "vue-cli-service serve"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "core-js": "^2.6.5",
     "element-ui": "^2.13.2",
-    "axios": "^0.18.0",
+    "jquery": "^3.5.1",
+    "mavon-editor": "^2.9.0",
     "vue": "^2.6.10",
     "vue-router": "^3.0.3",
     "vuex": "^3.0.1"
