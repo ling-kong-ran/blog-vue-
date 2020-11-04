@@ -118,6 +118,13 @@
         created() {
             const blogId = this.$route.params.blogId
             console.log(blogId);
+            if (blogId){
+                this.$axios.get('/blog/'+blogId).then(res=>{
+                    console.log(res.data.data);
+                    this.blog=res.data.data;
+                })
+            }
+
         },
         methods: {
             submitForm(formName) {

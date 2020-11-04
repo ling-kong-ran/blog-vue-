@@ -3,7 +3,6 @@
 import Vue from 'vue';
 import axios from "axios";
 import Element from 'element-ui'
-import store from "../store";
 
 // Full config:  https://github.com/axios/axios#request-config
 // axios.defaults.baseURL = process.env.baseURL || process.env.apiUrl || '';
@@ -32,7 +31,6 @@ _axios.interceptors.request.use(
 _axios.interceptors.response.use(
   function(response) {
     // Do something with response data
-      console.log(response);
       if (!response.data.status){
       Element.Message.error(response.data.msg)
     }
@@ -42,7 +40,6 @@ _axios.interceptors.response.use(
   function(error) {
     // Do something with response error
       Element.Message.error('操作失败')
-      console.log(error);
       return Promise.reject(error);
   }
 );

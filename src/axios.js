@@ -1,6 +1,6 @@
 import Axios from "axios";
 
-Axios.defaults.baseURL="http://10.209.233.167:8888"
+Axios.defaults.baseURL="http://10.204.54.33:8888"
 //前置拦截
 // Axios.interceptors.request.use(config=>{
 //     return config;

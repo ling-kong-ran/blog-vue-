@@ -20,8 +20,13 @@ export default new Router({
         {path: '/', name:'Index', redirect: '/blogs'},
         {path: '/blogs',name:'Blogs', component: Blogs},
         {path: '/login',name:'Login', component: Login},
-        {path: '/blog/add',name:'BlogEdit', component: BlogEdit},
+        {path: '/blog/add',name:'BlogEdit', component: BlogEdit,meta:{
+            requireAuth:true
+            }},
         {path: '/blog/:blogId',name:'BlogDetail', component: BlogDetail},
+        {path: '/blog/:blogId/edit',name:'BlogDetail', component: BlogEdit,meta:{
+                requireAuth:true
+            }},
         {path: '/tag',name:'Tag', component: Tag},
         {path: '/type',name:'Type', component: Type},
         {path: '/archive',name:'Archive', component: Archive},

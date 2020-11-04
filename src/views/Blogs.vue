@@ -7,10 +7,17 @@
                 <el-timeline-item class="top" v-for="blog in blogs" :timestamp="blog.createTime" placement="top">
                     <router-link :underline="false" :to="{name:'BlogDetail',params:{blogId:blog.id}}">
                         <el-card class="card">
+                            <div class="line">
+                                <i class="el-icon-view">{{blog.views}}</i>
+                                <h4>
+                                    {{blog.title}}
+                                </h4>
+                            </div>
+
                             <div class="demo-image">
                                     <el-image
                                             v-show="blog.firstPicture"
-                                            style="width: 50%; height: auto;padding: 0"
+                                            style="width: 100%; height: auto;padding: 0"
                                             :src="blog.firstPicture"
                                             fit="contain">
                                         <div slot="error" class="image-slot">
@@ -18,9 +25,6 @@
                                     </el-image>
 
                             </div>
-                            <h4>
-                                {{blog.title}}
-                            </h4>
                             <p>{{blog.description}}</p>
                             这是我的个人博客，记录学习进度和关于编程、写作、思考相关的任何内容...
 
@@ -76,15 +80,21 @@
 </script>
 
 <style  type="text/css">
+    .line i{
+        position: absolute;
+        left: 50px;
+    }
     .demo-image{
         padding: 0;
     }
     .bigbox{
         width: auto;
+
     }
 
     .block{
         margin-top: 0;
+        text-align: center;
     }
     a{
         text-decoration: none;

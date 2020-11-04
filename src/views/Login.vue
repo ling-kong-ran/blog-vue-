@@ -2,7 +2,7 @@
         <div class="box">
                 <el-row class="row" label-position="right" type="flex">
                     <el-col :span="20" :push="2" :xs="{span:20,push:2}">
-                        <el-col :span="12" :push="6" :xs="{span:20,push:2}" >
+                        <el-col :span="14" :push="5" :xs="{span:22,push:1}" >
                             <el-card shadow="always" class="card" >
                                 <el-form :model="ruleForm" :rules="rules" ref="ruleForm"  class="demo-ruleForm">
                                     <el-form-item  label="用户" prop="username" >
@@ -56,7 +56,12 @@
                             let token=res.headers['authentication'];
                             this.$store.commit('SET_TOKEN',token);
                             this.$store.commit('SET_USERINFO',userInfo);
+                            this.$store.commit('SET_LOGIN',true);
+                            console.log(res);
+                            console.log('成功登陆')
                             this.$router.push({name:'Blogs'})
+                            this.$router.go(0);
+
                         })
                     } else {
                         console.log('error submit!!');
@@ -73,6 +78,7 @@
 
 <style scoped>
     .box  {
+        text-align: center;
         color: white;
         width: 100%;
         height: 100%;
@@ -83,7 +89,7 @@
         padding-top: 100px;
         padding-bottom: 0;
         background-color: white;
-        height: 400px;
+        height: auto;
     }
 
     .el-form{

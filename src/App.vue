@@ -30,6 +30,7 @@
 
     import Header from "./components/Header";
     import Footer from "./components/Footer";
+    //点击鼠标爱心特效
     import  './plugins/js/love'
 
 
@@ -69,7 +70,7 @@
         width: 100%;
         height: auto;
         overflow: auto;
-        max-height: 2000px;
+        min-height: 1000px;
         position: absolute;
         padding-top: 50px;
         top: 60px;
@@ -137,7 +138,7 @@
 
     .el-main {
         color: white;
-        text-align: center;
+
         height: auto;
 
     }
