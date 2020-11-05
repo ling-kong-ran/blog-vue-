@@ -46,6 +46,9 @@
                 }
             };
         },
+        created() {
+        },
+
         methods: {
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {

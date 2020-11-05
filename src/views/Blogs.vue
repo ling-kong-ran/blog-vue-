@@ -4,7 +4,7 @@
     <div class="block">
 
         <div class="blogsbox">
-            <el-timeline style="width: 70%; ;margin: 0 auto"  >
+            <el-timeline style="width: 100%; ;margin: 0 auto"  >
                 <el-timeline-item class="top" v-for="blog in blogs" :timestamp="blog.createTime!=null?blog.createTime:blog.updateTime" placement="top">
                     <router-link :underline="false" :to="{name:'BlogDetail',params:{blogId:blog.id}}">
                         <el-card class="card">
@@ -27,7 +27,7 @@
                                     </el-image>
                             </div>
                             <p>{{blog.description}}</p>
-                            这是我的个人博客，记录学习进度和关于编程、写作、思考相关的任何内容...
+                            <br>
 
                         </el-card>
                     </router-link>

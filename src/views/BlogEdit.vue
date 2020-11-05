@@ -190,16 +190,22 @@
 
             },
             backDown() {
+                const that=this;
                 var clientHeight=document.documentElement.clientHeight||document.body.clientHeight;
                 var scrollHeight=document.documentElement.scrollHeight;
-                var height=scrollHeight-clientHeight; //超出窗口上界的值就是底部的scrolTop的值
-                document.documentElement.scrollTop+=scrollHeight;
-                if (document.documentElement.scrollTop<height) {
-                    var c=setTimeout(()=>this.backDown(),16);
+                var height=scrollHeight-clientHeight; //超出窗口上界的值就是底部的scrollTop的值
+                let ispeed = Math.floor(that.scrollTop / 5)
+                document.documentElement.scrollTop = document.body.scrollTop = that.scrollTop + ispeed+200
 
+                if (document.documentElement.scrollTop<scrollHeight-clientHeight) {
+                    var c=setTimeout(()=>this.backDown(),16);
+                    if (document.documentElement.scrollTop===0){//手机端识别不了scrollTop 永远为0所以会死循环
+                        that.btnFlag_=true
+                        clearTimeout(c);
+                    }
                 }else {
                     clearTimeout(c);
-                    this.btnFlag_=false
+                    that.btnFlag_=false
                 }
             },
 
@@ -209,8 +215,13 @@
                 that.scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
                 if (that.scrollTop > 60) {
                     that.btnFlag = true
-                } else {
+                }
+                else if (that.scrollTop===0){
+                    that.btnFlag_=false
+                }
+                else {
                     that.btnFlag = false
+                    that.btnFlag_=true
                 }
             },
         }

@@ -16,8 +16,61 @@
     </div>
     <div class="updown" >
         <el-button  v-show="btnFlag" @click="backTop" class="up" type="primary" icon="el-icon-top" circle></el-button>
-        <el-button v-show="btnFlag_" @click="backDown" class="down" type="primary" icon="el-icon-bottom" circle></el-button>
+        <el-button circle icon="el-icon-cold-drink" class="down" @click="drawer = true" type="primary" style="margin-left: 16px;">
+
+        </el-button>
     </div>
+    <div class="about">
+        <el-drawer
+                title="我是标题"
+                :visible.sync="drawer"
+                :with-header="false"
+                :modal="false"
+                size="50%"
+                style="text-align: center ;"
+        >
+            <el-card shadow="always" style="background-color: pink;width: 90%; margin: 0 auto;">
+
+                <p>
+                    欢迎光临博客,如果觉得不错可以推给小伙伴哟,
+                    也欢迎投稿
+                    <el-link type="success" href="https://mail.qq.com/">
+                        3204170464@qq.com
+                    </el-link>
+                </p>
+                <div class="lbox" style="float: left;width: 50%">
+                    <el-image
+                            :src="wechat"
+                            fit="fit"
+                            style="width: 90%"
+                    >
+
+                    </el-image>
+                    <br>
+                    <p>
+                        联系我
+                    </p>
+
+                </div>
+                <div class="rbox" style="float: left;width: 50% ;">
+                    <el-image
+                            fit="fit"
+                            :src="admire"
+                            style="width: 90%"
+                    >
+
+                    </el-image>
+                    <br>
+                    <p>
+                听说你要请我喝奶茶
+            </p>
+                </div>
+
+            </el-card>
+
+        </el-drawer>
+    </div>
+
 
 
 
@@ -33,7 +86,9 @@
             return{
                 blog:{},
                 btnFlag:false,
-                btnFlag_:false,
+                drawer:false,
+                wechat:require('../assets/wechat.png'),
+                admire:require('../assets/pay.png')
             }
         },
         methods: {
@@ -45,24 +100,10 @@
                     document.documentElement.scrollTop = document.body.scrollTop = that.scrollTop + ispeed
                     if (that.scrollTop === 0) {
                         clearInterval(timer)
-                        this.btnFlag_=true
                     }
                 }, 16)
             },
-            backDown() {
-                const that=this;
-                var clientHeight=document.documentElement.clientHeight||document.body.clientHeight;
-                var scrollHeight=document.documentElement.scrollHeight;
-                var height=scrollHeight-clientHeight; //超出窗口上界的值就是底部的scrollTop的值
-                let ispeed = Math.floor(that.scrollTop / 5)
-                document.documentElement.scrollTop = document.body.scrollTop = that.scrollTop + ispeed+200
-                if (document.documentElement.scrollTop<scrollHeight/1.1) {
-                    var c=setTimeout(()=>this.backDown(),16);
-                }else {
-                    clearTimeout(c);
-                    this.btnFlag_=false
-                }
-        },
+
 
             // 为了计算距离顶部的高度，当高度大于60显示回顶部图标，小于60则隐藏
             scrollToTop () {
@@ -72,11 +113,9 @@
                     that.btnFlag = true
                 }
                 else if (that.scrollTop===0){
-                    that.btnFlag_=false
                 }
                 else {
                     that.btnFlag = false
-                    that.btnFlag_=true
                 }
             },
 
@@ -109,7 +148,18 @@
     }
 </script>
 
-<style scoped>
+<style >
+    .about{
+        width: 400px;
+    }
+
+    div.v-modal{
+        display: none;
+    }
+    section.el-drawer__body{
+        background-color: pink;
+        padding-top: 150px;
+    }
     .updown{
         position: fixed;
         width: 45px;

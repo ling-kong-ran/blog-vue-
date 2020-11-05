@@ -16,10 +16,10 @@
                     </el-row>
                 </el-main>
             </div>
-            <el-footer>
-                <Footer>
-                </Footer>
-            </el-footer>
+<!--            <el-footer>-->
+<!--                <Footer>-->
+<!--                </Footer>-->
+<!--            </el-footer>-->
         </el-container>
     </div>
 
