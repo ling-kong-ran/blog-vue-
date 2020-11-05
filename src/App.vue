@@ -137,7 +137,7 @@
 
 
     .el-main {
-        color: white;
+
 
         height: auto;
 

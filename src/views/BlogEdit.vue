@@ -195,7 +195,7 @@
                 var height=scrollHeight-clientHeight; //超出窗口上界的值就是底部的scrolTop的值
                 document.documentElement.scrollTop+=scrollHeight;
                 if (document.documentElement.scrollTop<height) {
-                    var c=setTimeout(()=>this.toBottom(i),16);
+                    var c=setTimeout(()=>this.backDown(),16);
 
                 }else {
                     clearTimeout(c);

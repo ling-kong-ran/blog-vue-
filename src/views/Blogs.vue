@@ -5,7 +5,7 @@
 
         <div class="blogsbox">
             <el-timeline style="width: 70%; ;margin: 0 auto"  >
-                <el-timeline-item class="top" v-for="blog in blogs" :timestamp="blog.createTime" placement="top">
+                <el-timeline-item class="top" v-for="blog in blogs" :timestamp="blog.createTime!=null?blog.createTime:blog.updateTime" placement="top">
                     <router-link :underline="false" :to="{name:'BlogDetail',params:{blogId:blog.id}}">
                         <el-card class="card">
                             <div class="line">

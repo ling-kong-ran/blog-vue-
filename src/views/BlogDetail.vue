@@ -1,7 +1,7 @@
 <template>
 <div class="detailbox">
     <div class="blogTitle">
-        <h5>{{blog.title}}</h5>
+        <h2>{{blog.title}}</h2>
     </div>
     <div class="blogImg" v-show="blog.firstPicture">
         <el-image :src="blog.firstPicture"
@@ -15,8 +15,8 @@
         <p class="content" v-html="blog.content"></p>
     </div>
     <div class="updown" >
-        <el-button  v-if="btnFlag" @click="backTop" class="up" type="primary" icon="el-icon-top" circle></el-button>
-        <el-button  @click="backDown" class="down" type="primary" icon="el-icon-bottom" circle></el-button>
+        <el-button  v-show="btnFlag" @click="backTop" class="up" type="primary" icon="el-icon-top" circle></el-button>
+        <el-button v-show="btnFlag_" @click="backDown" class="down" type="primary" icon="el-icon-bottom" circle></el-button>
     </div>
 
 
@@ -33,6 +33,7 @@
             return{
                 blog:{},
                 btnFlag:false,
+                btnFlag_:false,
             }
         },
         methods: {
@@ -44,18 +45,22 @@
                     document.documentElement.scrollTop = document.body.scrollTop = that.scrollTop + ispeed
                     if (that.scrollTop === 0) {
                         clearInterval(timer)
+                        this.btnFlag_=true
                     }
                 }, 16)
             },
             backDown() {
+                const that=this;
                 var clientHeight=document.documentElement.clientHeight||document.body.clientHeight;
                 var scrollHeight=document.documentElement.scrollHeight;
-                var height=scrollHeight-clientHeight; //超出窗口上界的值就是底部的scrolTop的值
-                document.documentElement.scrollTop+=scrollHeight;
-                if (document.documentElement.scrollTop<height) {
-                    var c=setTimeout(()=>this.toBottom(i),16);
+                var height=scrollHeight-clientHeight; //超出窗口上界的值就是底部的scrollTop的值
+                let ispeed = Math.floor(that.scrollTop / 5)
+                document.documentElement.scrollTop = document.body.scrollTop = that.scrollTop + ispeed+200
+                if (document.documentElement.scrollTop<scrollHeight/1.1) {
+                    var c=setTimeout(()=>this.backDown(),16);
                 }else {
                     clearTimeout(c);
+                    this.btnFlag_=false
                 }
         },
 
@@ -65,8 +70,13 @@
                 that.scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
                 if (that.scrollTop > 60) {
                     that.btnFlag = true
-                } else {
+                }
+                else if (that.scrollTop===0){
+                    that.btnFlag_=false
+                }
+                else {
                     that.btnFlag = false
+                    that.btnFlag_=true
                 }
             },
 
@@ -119,6 +129,7 @@
         right: -6px;
     }
     .blogTitle{
+        color: aqua;
         text-align: center;
         font-size: large;
     }
