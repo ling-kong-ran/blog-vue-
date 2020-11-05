@@ -83,7 +83,9 @@
                 this.user.nickname='未登录'
             }else {
                 this.user=this.$store.getters.getUser;
-                this.isLogin=true;
+                this.$store.commit('SET_LOGIN',true);
+                this.isLogin=this.$store.getters.getLogin;
+                console.log(this.isLogin);
             }
 
         }

@@ -24,7 +24,7 @@ export default new Router({
             requireAuth:true
             }},
         {path: '/blog/:blogId',name:'BlogDetail', component: BlogDetail},
-        {path: '/blog/:blogId/edit',name:'BlogDetail', component: BlogEdit,meta:{
+        {path: '/blog/:blogId/edit',name:'BlogUpdate', component: BlogEdit,meta:{
                 requireAuth:true
             }},
         {path: '/tag',name:'Tag', component: Tag},

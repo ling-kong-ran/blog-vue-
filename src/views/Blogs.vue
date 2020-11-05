@@ -2,6 +2,7 @@
 
 
     <div class="block">
+
         <div class="blogsbox">
             <el-timeline style="width: 70%; ;margin: 0 auto"  >
                 <el-timeline-item class="top" v-for="blog in blogs" :timestamp="blog.createTime" placement="top">
@@ -9,6 +10,7 @@
                         <el-card class="card">
                             <div class="line">
                                 <i class="el-icon-view">{{blog.views}}</i>
+
                                 <h4>
                                     {{blog.title}}
                                 </h4>
@@ -19,18 +21,25 @@
                                             v-show="blog.firstPicture"
                                             style="width: 100%; height: auto;padding: 0"
                                             :src="blog.firstPicture"
-                                            fit="contain">
+                                            >
                                         <div slot="error" class="image-slot">
                                         </div>
                                     </el-image>
-
                             </div>
                             <p>{{blog.description}}</p>
                             这是我的个人博客，记录学习进度和关于编程、写作、思考相关的任何内容...
 
                         </el-card>
                     </router-link>
+                    <div class="editbtn" v-if="isCurrentUser(blog)">
+                        <el-button @click="edit(blog)"  type="success" circle>
+                            <i class="el-icon-edit"></i>
+                        </el-button>
+                    </div>
+
+
                 </el-timeline-item>
+
             </el-timeline>
 
         </div>
@@ -47,6 +56,8 @@
 </template>
 
 <script>
+    import BlogEdit from "./BlogEdit";
+
     export default {
         name: "Blogs",
         data(){
@@ -57,7 +68,8 @@
                 currentPage:1,
                 pageSize:5,//1页有多少个
                 pageCount:2,
-                blogs:[]
+                blogs:[],
+
             }
         },
         methods:{
@@ -70,6 +82,16 @@
                     this.pageSize = res.data.data.pageSize;
                 })
             },
+            isCurrentUser(blog){
+                if (sessionStorage.getItem('userInfo')!=null){
+                    return blog.userId == this.$store.getters.getUser.id;
+                }
+
+            },
+            edit(blog){
+                const blogId = blog.id
+                this.$router.push({name:'BlogUpdate',params:{blogId:blogId}})
+            }
 
         },
         created() {
@@ -80,6 +102,15 @@
 </script>
 
 <style  type="text/css">
+
+    .el-icon-edit:before{
+        position: relative;
+    }
+    .editbtn{
+        position: absolute;
+        bottom: 4px;
+        left: 35px;
+    }
     .line i{
         position: absolute;
         left: 50px;
