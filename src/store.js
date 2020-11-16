@@ -6,7 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     token:'',
-    userInfo: JSON.parse(sessionStorage.getItem("userInfo")),
+    userInfo: sessionStorage.getItem("userInfo"),
     isLogin:false
   },
   mutations: {//set

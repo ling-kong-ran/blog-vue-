@@ -82,10 +82,10 @@
             if (!this.$store.getters.getUser){
                 this.user.nickname='未登录'
             }else {
-                this.user=this.$store.getters.getUser;
+                this.user=JSON.parse(this.$store.getters.getUser);
                 this.$store.commit('SET_LOGIN',true);
                 this.isLogin=this.$store.getters.getLogin;
-                console.log(this.isLogin);
+                console.log(this.user);
             }
 
         }

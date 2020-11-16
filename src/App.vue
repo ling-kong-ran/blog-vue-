@@ -115,11 +115,9 @@
     }
     .body{
         margin-top: 10px;
-        opacity: 70%;
+        opacity: 80%;
         width: 100%;
     }
-
-
     .background{
         width:100%;
         height:auto;

@@ -10,9 +10,10 @@ import markdown from "mavon-editor";
 import "mavon-editor/dist/css/index.css"
 import $ from 'jquery'
 import './permission'
-// step2：把axios挂载到vue的原型中，在vue中每个组件都可以使用axios发送请求,
-// 不需要每次都 import一下 axios了，直接使用 $axios 即可
+import Highlight from "./plugins/js/highlight";
+
 import "./axios"
+Vue.use(Highlight)
 Vue.use(ElementUI)
 Vue.use(markdown)
 Vue.config.productionTip = false

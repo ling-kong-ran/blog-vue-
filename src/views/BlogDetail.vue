@@ -11,8 +11,8 @@
             </div>
         </el-image>
     </div>
-    <div class="markdown-body">
-        <p class="content" v-html="blog.content"></p>
+    <div id="content " class="markdown-body" v-highlight v-html="blog.content">
+<!--        <div class="content" v-html="blog.content"></div>-->
     </div>
     <div class="updown" >
         <el-button  v-show="btnFlag" @click="backTop" class="up" type="primary" icon="el-icon-top" circle></el-button>
@@ -70,18 +70,21 @@
 
         </el-drawer>
     </div>
-
-
-
-
+    <div>
+        <Comment></Comment>
+    </div>
 </div>
+
 </template>
 
 <script>
     import 'github-markdown-css'
+    import Comment from "../components/Comment";
+
 
     export default {
         name: "BlogDetail",
+        components: {Comment},
         data(){
             return{
                 blog:{},
@@ -187,6 +190,7 @@
         width: 100%;
     }
 .detailbox{
+    background-color: white;
     width: 100%;
     box-shadow: 0 2px 4px rgba(0, 0, 255, .12), 0 0 6px rgba(0, 0, 255, .04);
     min-height: 800px;

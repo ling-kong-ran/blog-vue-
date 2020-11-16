@@ -57,13 +57,19 @@
                         this.$axios.post("/login",this.ruleForm).then(res=>{
                             let userInfo=JSON.stringify(res.data.data)
                             let token=res.headers['authentication'];
-                            this.$store.commit('SET_TOKEN',token);
-                            this.$store.commit('SET_USERINFO',userInfo);
-                            this.$store.commit('SET_LOGIN',true);
-                            console.log(res);
-                            console.log('成功登陆')
-                            this.$router.push({name:'Blogs'})
-                            this.$router.go(0);
+
+                            if (res.data.status){
+                                this.$message({
+                                    message: '登录成功',
+                                    type: 'success'
+                                });
+                                this.$store.commit('SET_TOKEN',token);
+                                this.$store.commit('SET_USERINFO',userInfo);
+                                this.$store.commit('SET_LOGIN',true);
+                                this.$router.push({name:'Blogs'})
+                                this.$router.go(0);
+                            }
+
 
                         })
                     } else {

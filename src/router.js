@@ -7,6 +7,7 @@ import BlogDetail from "./views/BlogDetail";
 import Archive from "./views/Archive";
 import Tag from "./views/Tag";
 import Type from "./views/Type";
+import TagTypeEdit from "./views/TagTypeEdit";
 
 Vue.use(Router)
 //解决两次访问相同路由地址报错
@@ -28,7 +29,13 @@ export default new Router({
                 requireAuth:true
             }},
         {path: '/tag',name:'Tag', component: Tag},
+        {path: '/tag/:tagId/edit',name:'TagUpdate', component: TagTypeEdit,meta: {
+                requireAuth:true
+            }},
         {path: '/type',name:'Type', component: Type},
+        {path: '/type/:typeId/edit',name:'TypeUpdate', component: TagTypeEdit,meta:{
+                requireAuth:true
+            }},
         {path: '/archive',name:'Archive', component: Archive},
 
     ]
