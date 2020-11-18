@@ -73,6 +73,7 @@
                     }
                 }).then(res=>{
                     this.$store.commit('REMOVE_INFO');
+                    localStorage.removeItem('commenter');
                 })
                 this.isLogin=false;
             }

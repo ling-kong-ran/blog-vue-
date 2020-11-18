@@ -187,7 +187,7 @@
                 if (sessionStorage.getItem('userInfo')){
                    this.commenter=JSON.parse(sessionStorage.getItem('userInfo'));
                 }else {
-                    this.commenter=null;
+                    this.commenter=this.toComment.email?this.toComment:null;
                 }
                     localStorage.setItem('commenter',JSON.stringify(this.commenter))
 
@@ -196,7 +196,7 @@
                 /*
                 判断是否允许发表
                 * */
-                return localStorage.getItem('commenter')!=null;
+                return this.commenter!=null;
             },
             getComments(){
                 this.$axios.get('/comment/'+this.toComment.blogId).then(res=>{

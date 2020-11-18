@@ -40,18 +40,19 @@
             </el-form-item>
             <el-form-item prop="tagType">
                 <div class="myselect my_font">
-                    <el-select multiple v-model="blog.tag" placeholder="标签">
+                    <el-select multiple v-model="checkTags" placeholder="标签">
                         <el-option
-                                v-for="item in tags"
-                                :label="item.name"
-                                :value="item.name">
+                                v-for="tag in tags"
+                                :label="tag.name"
+                                :value="tag.id">
                         </el-option>
+
                     </el-select>
-                    <el-select class="padding_left" v-model="blog.type" placeholder="类型">
+                    <el-select class="padding_left" v-model="blog.typeId" placeholder="类型">
                         <el-option
-                                v-for="item in types"
-                                :label="item.name"
-                                :value="item.name">
+                                v-for="type in types"
+                                :label="type.name"
+                                :value="type.id">
                         </el-option>
                     </el-select>
                 </div>
@@ -81,36 +82,19 @@
                 btnFlag_: true,
 
                 types: [
-                    {
-                        id: 1,
-                        name: '学习'
-                    },
-                    {
-                        id: 2,
-                        name: '编程'
-                    }
+
                 ],
 
                 tags: [
-                    {
-                        id: 1,
-                        name: 'JavaScript'
-                    },
-                    {
-                        id: 2,
-                        name: 'Python'
-                    },
-                    {
-                        id: 3,
-                        name: 'SpringBoot'
-                    },
+
                 ],
+                checkTags:[],
                 blog: {
                     title: '',
-                    tag: '',
-                    type: '',
+                    tags: [],
+                    type: {},
                     description: '',
-                    flag: '转载',
+                    flag: '原创',
                     appreciation: false,
                     commentAbled: false,
                     content: '',
@@ -118,6 +102,7 @@
                     published: false,
                     recommend: false,
                     shareStatement: false,
+                    deleted:false
                 },
                 rules: {
                     title: [
@@ -137,12 +122,15 @@
             };
         },
         created() {
+            this.getTags();
+            this.getTypes();
             const blogId = this.$route.params.blogId
-            console.log(blogId);
+            console.log(this.blog);
             if (blogId) {
                 this.$axios.get('/blog/' + blogId).then(res => {
                     console.log(res.data.data);
                     this.blog = res.data.data;
+
                 })
             }
 
@@ -154,7 +142,21 @@
             window.removeEventListener('scroll', this.scrollToTop)
         },
         methods: {
+
+            setTags(){
+                let tags=[];
+                this.tags.forEach(i=>{
+                    this.checkTags.forEach(a=>{
+                        if (i.id==a){
+                            tags.push(i)
+                        }
+                    })
+
+                })
+                this.blog.tags=tags;
+            },
             submitForm(formName) {
+                this.setTags();
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         alert('submit!');
@@ -167,7 +169,11 @@
                                 this.$router.push({name: "Blogs"})
                             })
                         } else {
-                            this.$axios.post('/blog', this.blog, {
+                            // this.blog.tags['tags']=this.checkTags;
+                            // let tagsId=JSON.stringify(this.blog.tags);
+                            // console.log(this.blog.tags);
+
+                            this.$axios.post('/blog', this.blog,{
                                 headers: {
                                     "Authentication": localStorage.getItem('token')
                                 }
@@ -187,6 +193,17 @@
             resetForm(formName) {
                 this.$refs[formName].resetFields();
             },
+            getTags(){
+                this.$axios.get('/tags').then(res=>{
+                    this.tags=res.data.data;
+                })
+            },
+            getTypes(){
+                this.$axios.get('/types').then(res=>{
+                    this.types=res.data.data;
+                })
+            },
+
 
 
             // 点击图片回到顶部方法，加计时器是为了过渡顺滑

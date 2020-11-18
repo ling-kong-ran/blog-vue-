@@ -115,7 +115,7 @@
     }
     .body{
         margin-top: 10px;
-        opacity: 80%;
+        opacity: 95%;
         width: 100%;
     }
     .background{

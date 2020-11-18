@@ -8,6 +8,19 @@
                 <el-timeline-item class="top" v-for="blog in blogs" :timestamp="blog.createTime!=null?blog.createTime:blog.updateTime" placement="top">
                     <router-link :underline="false" :to="{name:'BlogDetail',params:{blogId:blog.id}}">
                         <el-card class="card">
+                            <el-row>
+                                <el-col :span="1" :sm="{ span:2 }" :xs="{ span:4 }">
+                                    <div style="width: 50px">
+                                        <p style="color: black ; background-color:aquamarine;border: 1px solid wheat ;border-radius: 20px">
+                                            {{blog.flag}}
+                                        </p>
+                                    </div>
+
+
+                                </el-col>
+
+
+                            </el-row>
                             <div class="line">
                                 <i class="el-icon-view">{{blog.views}}</i>
 
@@ -56,7 +69,6 @@
 </template>
 
 <script>
-    import BlogEdit from "./BlogEdit";
 
     export default {
         name: "Blogs",
@@ -84,7 +96,7 @@
             },
             isCurrentUser(blog){
                 if (sessionStorage.getItem('userInfo')!=null){
-                    return blog.userId == this.$store.getters.getUser.id;
+                    return blog.userId == JSON.parse(sessionStorage.getItem('userInfo')).id;
                 }
 
             },
